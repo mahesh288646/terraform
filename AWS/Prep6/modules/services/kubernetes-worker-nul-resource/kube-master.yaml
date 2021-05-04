@@ -1,0 +1,11 @@
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: ClusterConfiguration 
+kubernetesVersion: 1.21.0 
+apiServer: 
+  extraArgs: 
+    cloud-provider: "aws" 
+controllerManager: 
+  extraArgs: 
+    cloud-provider: "aws" 
+    allocate-node-cidrs: "true" 
+    cluster-cidr: 10.244.0.0/16 
