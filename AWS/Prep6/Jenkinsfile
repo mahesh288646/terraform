@@ -37,6 +37,13 @@ pipeline {
                                             sh "cd ${env.WORKSPACE}/AWS/Prep6/ && terraform apply --auto-approve"
 }
                            }
+    } 
+        stage('Terraform destroy') {
+            steps {
+                    withCredentials([usernamePassword(credentialsId: 'AWSID', passwordVariable: '', usernameVariable: '')]) {
+                                            sh "cd ${env.WORKSPACE}/AWS/Prep6/ && terraform destroy --auto-approve"
+}
+                           }
     }   
     }
 }
