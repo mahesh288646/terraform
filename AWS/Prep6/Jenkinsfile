@@ -41,6 +41,7 @@ pipeline {
                stage('Terraform destroy') {
             steps {
                     withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWSID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                                            sh "date"
                                             sh "cd ${env.WORKSPACE}/AWS/Prep6/ && terraform destroy --auto-approve"
 }
                            }
