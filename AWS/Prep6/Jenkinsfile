@@ -33,14 +33,14 @@ pipeline {
     }   
        stage('Terraform apply') {
             steps {
-                    wwithCredentials([usernameColonPassword(credentialsId: 'AWSIDNEW', variable: 'AWSID')]) {
+                    withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWSID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                                             sh "cd ${env.WORKSPACE}/AWS/Prep6/ && terraform apply --auto-approve"
 }
                            }
     }   
                stage('Terraform destroy') {
             steps {
-                    wwithCredentials([usernameColonPassword(credentialsId: 'AWSIDNEW', variable: 'AWSID')]) {
+                    withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWSID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                                             sh "cd ${env.WORKSPACE}/AWS/Prep6/ && terraform destroy --auto-approve"
 }
                            }
