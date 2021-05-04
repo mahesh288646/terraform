@@ -26,24 +26,24 @@ pipeline {
     }                        
        stage('Terraform Plan') {
              steps {
-                    withCredentials([usernamePassword(credentialsId: 'AWSID', passwordVariable: '', usernameVariable: '')]) {
+                    withCredentials([usernameColonPassword(credentialsId: 'AWSIDNEW', variable: 'AWSID')]) {
                                             sh "cd ${env.WORKSPACE}/AWS/Prep6/ && terraform plan -input=false"
 }
        }
     }   
        stage('Terraform apply') {
             steps {
-                    withCredentials([usernamePassword(credentialsId: 'AWSID', passwordVariable: '', usernameVariable: '')]) {
+                    wwithCredentials([usernameColonPassword(credentialsId: 'AWSIDNEW', variable: 'AWSID')]) {
                                             sh "cd ${env.WORKSPACE}/AWS/Prep6/ && terraform apply --auto-approve"
 }
                            }
-    } 
-        stage('Terraform destroy') {
+    }   
+               stage('Terraform destroy') {
             steps {
-                    withCredentials([usernamePassword(credentialsId: 'AWSID', passwordVariable: '', usernameVariable: '')]) {
+                    wwithCredentials([usernameColonPassword(credentialsId: 'AWSIDNEW', variable: 'AWSID')]) {
                                             sh "cd ${env.WORKSPACE}/AWS/Prep6/ && terraform destroy --auto-approve"
 }
                            }
-    }   
+    }  
     }
 }
