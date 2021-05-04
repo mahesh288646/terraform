@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+         tools {
+                 maven 'Maven'
+                 
+                 //jdk 'JDK7'
+             }
+    stages {
+        stage('Checkout from Application Repo'){
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mahesh288646/terraform.git']]])
+                
+                  }
+        }
+        stage('Deploying-Dev') {
+            steps {
+                echo "Hello"
+                tool name: 'Terraform', type: 'terraform'
+
+                 }
+                                }
+        stage('Terraform Init') {
+            steps {
+                    sh "cd ${env.WORKSPACE}/AWS/Prep6/ && terraform init -input=false"
+      }
+    }                        
+       stage('Terraform Plan') {
+             steps {
+                    withCredentials([usernamePassword(credentialsId: 'AWSID', passwordVariable: '', usernameVariable: '')]) {
+                                            sh "cd ${env.WORKSPACE}/AWS/Prep6/ && terraform plan -input=false"
+}
+       }
+    }   
+       stage('Terraform apply') {
+            steps {
+                    withCredentials([usernamePassword(credentialsId: 'AWSID', passwordVariable: '', usernameVariable: '')]) {
+                                            sh "cd ${env.WORKSPACE}/AWS/Prep6/ && terraform apply --auto-approve"
+}
+                           }
+    }   
+    }
+}
