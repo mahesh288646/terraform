@@ -2,9 +2,16 @@
 provider "aws" {
   region     = "us-east-1"
   profile = "dev"
-
+  
 }
 
+terraform {
+  backend "s3" {
+    bucket = "labs3april42021"
+    key    = "app/terraform-state/"
+    region = "us-east-1"
+  }
+}
 
 module "vpc" {
   source           = "./modules/services/vpc"
