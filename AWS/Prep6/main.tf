@@ -8,7 +8,7 @@ provider "aws" {
 terraform {
   backend "s3" {
     bucket = "labs3april42021"
-    key    = "app/terraform-states/dev/terraform.tfstate""
+    key    = "app/terraform-states/dev/terraform.tfstate"
     region = "us-east-1"
   }
 }
